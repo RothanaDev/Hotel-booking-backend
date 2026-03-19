@@ -1,0 +1,22 @@
+name: Backend CD
+
+on:
+  workflow_run:
+    workflows: [ "Backend CI" ]
+    types:
+      - completed
+
+jobs:
+  deploy-to-render:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
+
+    steps:
+      - name: Trigger Render Deployment webhook
+        uses: fjogeleit/http-request-action@v1.15.2
+        with:
+          url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          method: GET
+
+      - name: Output deployment status
+        run: echo "Deployment request sent to Render successfully."
