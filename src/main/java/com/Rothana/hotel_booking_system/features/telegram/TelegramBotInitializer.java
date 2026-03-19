@@ -7,13 +7,13 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-@Component
+// @Component // REMOVED: Using telegrambots-spring-boot-starter registers the bot automatically!
 @RequiredArgsConstructor
 public class TelegramBotInitializer {
 
     private final HotelBookingTelegramBot bot;
 
-    @PostConstruct
+    // @PostConstruct
     public void init() {
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
