@@ -57,4 +57,4 @@ telegram:
   bot:
     username: ${TELEGRAM_BOT_USERNAME}
     token: ${TELEGRAM_BOT_TOKEN}
-    admin-chat-id: 123456789
+    admin-chat-id: 7638428580
