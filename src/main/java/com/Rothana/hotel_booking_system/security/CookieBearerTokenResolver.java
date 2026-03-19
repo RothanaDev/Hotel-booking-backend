@@ -11,13 +11,20 @@ public class CookieBearerTokenResolver implements BearerTokenResolver {
     @Override
     public String resolve(HttpServletRequest request) {
 
-        // 1) If you still want to support Authorization: Bearer ...
+        String path = request.getServletPath();
+
+        // ✅ VERY IMPORTANT: skip auth endpoints
+        if (path.startsWith("/api/v1/auth")) {
+            return null;
+        }
+
+        // 1) Authorization header
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
 
-        // 2) Otherwise read from cookie
+        // 2) Cookie
         Cookie[] cookies = request.getCookies();
         if (cookies == null) return null;
 
