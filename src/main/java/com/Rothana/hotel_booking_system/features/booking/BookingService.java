@@ -14,6 +14,7 @@ public interface BookingService {
     List<BookingResponse> findAll();
     void delete(Integer id);
     List<BookingResponse> findBookingsByUserId(Integer userId);
+    BookingResponse payBooking(Integer bookingId);
 
 
 }

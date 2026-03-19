@@ -9,4 +9,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     Optional<Payment> findByPaypalOrderId(String paypalOrderId);
     boolean existsByPaypalOrderId(String paypalOrderId);
 
+    Optional<Payment> findByBookingId(Integer bookingId);
+
+
 }

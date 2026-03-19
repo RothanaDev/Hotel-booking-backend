@@ -23,7 +23,7 @@ public class Payment {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PaymentProvider provider = PaymentProvider.PAYPAL;
+    private PaymentProvider provider;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -1,5 +1,7 @@
 package com.Rothana.hotel_booking_system.features.Payments;
 
+import com.Rothana.hotel_booking_system.entity.Payment;
+import com.Rothana.hotel_booking_system.features.Payments.dto.PaymentResponse;
 import com.Rothana.hotel_booking_system.features.Payments.dto.PaypalCaptureRequest;
 import com.Rothana.hotel_booking_system.features.Payments.dto.PaypalCaptureResponse;
 import com.Rothana.hotel_booking_system.features.Payments.dto.PaypalCreateOrderResponse;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/payments/paypal")
@@ -26,10 +29,6 @@ public class PaypalPaymentController {
         return paymentService.capturePaypalOrder(request);
     }
 
-    /**
-     * PayPal will redirect here after user approves payment.
-     * token = orderId
-     */
     @GetMapping("/success")
     public ResponseEntity<?> success(@RequestParam("token") String orderId) {
         // auto-capture when PayPal returns success
@@ -37,18 +36,11 @@ public class PaypalPaymentController {
         return ResponseEntity.ok(captured);
     }
 
-    /**
-     * PayPal will redirect here if user cancels OR PayPal refuses payment.
-     */
     @GetMapping("/cancel")
     public ResponseEntity<?> cancel(@RequestParam("token") String orderId) {
         return ResponseEntity.ok("Payment cancelled. orderId=" + orderId);
     }
 
-    /**
-     * Optional: redirect user to frontend after success/cancel
-     * (use if you want)
-     */
     @GetMapping("/success-redirect")
     public ResponseEntity<Void> successRedirect(@RequestParam("token") String orderId) {
         return ResponseEntity.status(302)
@@ -61,5 +53,16 @@ public class PaypalPaymentController {
         return ResponseEntity.status(302)
                 .location(URI.create("http://localhost:3000/paypal/cancel?token=" + orderId))
                 .build();
+    }
+    @PostMapping("/cash/{bookingId}")
+    public ResponseEntity<String> payCash(@PathVariable Integer bookingId) {
+
+        paymentService.payCash(bookingId);
+
+        return ResponseEntity.ok("Cash payment completed");
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<PaymentResponse>> getAllPayments() {
+        return ResponseEntity.ok(paymentService.getAllPayments());
     }
 }

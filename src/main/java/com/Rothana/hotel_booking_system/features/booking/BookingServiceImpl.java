@@ -71,7 +71,7 @@ public class BookingServiceImpl implements com.Rothana.hotel_booking_system.feat
                 booking.setUser(user);
 
                 booking.setTotalNumOfGuest(request.numOfAdults() + request.numOfChildren());
-                booking.setStatus("completed");
+                booking.setStatus("pending");
                 booking.setCreatedAt(java.time.LocalDateTime.now());
 
                 // 5) Calculate room total
@@ -201,4 +201,28 @@ public class BookingServiceImpl implements com.Rothana.hotel_booking_system.feat
                 // Return response list
                 return bookingMapper.toBookingResponseList(bookings);
         }
+
+    @Override
+    public BookingResponse payBooking(Integer bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Booking Not Found"));
+
+        if(!booking.getStatus().equalsIgnoreCase("pending")){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Booking already paid or invalid status");
+        }
+
+        // update booking status
+        booking.setStatus("paid");
+
+        // lock the room now
+        Room room = booking.getRoom();
+        room.setStatus("booked");
+        roomRepository.save(room);
+
+        Booking updatedBooking = bookingRepository.save(booking);
+
+        return bookingMapper.toBookingResponse(updatedBooking);
+    }
 }

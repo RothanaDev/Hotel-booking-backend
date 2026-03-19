@@ -21,27 +21,31 @@ public class BookingController {
         return bookingService.create(request);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public BookingResponse update(@PathVariable("id") Integer id, @RequestBody BookingUpdateRequest request){
         return bookingService.update(id,request);
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public BookingResponse findById(@PathVariable Integer id){
         return bookingService.findById(id);
     }
-    @GetMapping("/findAll")
+    @GetMapping()
     public List<BookingResponse> findAll(){
         return bookingService.findAll();
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Integer id){
         bookingService.delete(id);
     }
     @GetMapping("/user/{userId}")
     public List<BookingResponse> getBookingsByUser(@PathVariable Integer userId) {
         return bookingService.findBookingsByUserId(userId);
+    }
+    @PutMapping("/{id}/pay")
+    public BookingResponse payBooking(@PathVariable Integer id){
+        return bookingService.payBooking(id);
     }
 
 }
