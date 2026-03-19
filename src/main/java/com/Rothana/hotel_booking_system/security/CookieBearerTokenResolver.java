@@ -13,8 +13,8 @@ public class CookieBearerTokenResolver implements BearerTokenResolver {
 
         String path = request.getServletPath();
 
-        // ✅ VERY IMPORTANT: skip auth endpoints
-        if (path.startsWith("/api/v1/auth")) {
+        // ✅ Skip ONLY public login and register endpoints to prevent blocking them with invalid lingering tokens
+        if (path.equals("/api/v1/auth/login") || path.equals("/api/v1/auth/register") || path.equals("/api/v1/auth/refresh-token")) {
             return null;
         }
 
