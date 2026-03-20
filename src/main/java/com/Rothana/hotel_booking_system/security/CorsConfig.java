@@ -15,26 +15,41 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ Allow both frontend ports
-        config.setAllowedOrigins(List.of(
+        // ✅ Allow localhost + all Vercel deployments
+        config.setAllowedOriginPatterns(List.of(
                 "http://localhost:3000",
-                "http://localhost:3001"
+                "http://localhost:3001",
+                "https://*.vercel.app"
         ));
 
-        config.setAllowCredentials(true); // Required for cookies
+        // ✅ Allow cookies / authentication
+        config.setAllowCredentials(true);
 
+        // ✅ Allowed HTTP methods
         config.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "DELETE", "OPTIONS"
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
         ));
 
+        // ✅ Allowed headers from frontend
         config.setAllowedHeaders(List.of(
                 "Authorization",
                 "Content-Type",
                 "Accept"
         ));
 
-        config.setExposedHeaders(List.of("Set-Cookie"));
+        // ✅ Expose headers to frontend
+        config.setExposedHeaders(List.of(
+                "Set-Cookie"
+        ));
 
+        // (Optional but recommended)
+        config.setMaxAge(3600L); // cache CORS response for 1 hour
+
+        // Apply this config to all endpoints
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
