@@ -25,11 +25,11 @@ public class MailConfig {
         sender.setPassword(password);
 
         Properties props = sender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        sender.setProtocol("smtps");
+        props.put("mail.smtps.auth", "true");
+        props.put("mail.smtps.ssl.enable", "true");
+        props.put("mail.smtps.socketFactory.port", "465");
+        props.put("mail.smtps.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.debug", "true");
 
         return sender;
