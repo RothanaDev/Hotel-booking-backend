@@ -25,8 +25,11 @@ public class MailConfig {
         sender.setPassword(password);
 
         Properties props = sender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.required", "true");
+        props.put("mail.debug", "true"); // Helps see logs if it fails again
 
         return sender;
     }
