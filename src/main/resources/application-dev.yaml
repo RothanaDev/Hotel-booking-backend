@@ -22,14 +22,14 @@ spring:
 
   mail:
     host: smtp.gmail.com
-    port: 465
-    username: ${SPRING_MAIL_USERNAME}
-    password: ${SPRING_MAIL_PASSWORD}
+    port: 587
+    username: phornrothana8@gmail.com
+    password: mqsh hamw yyvg hkfe
     properties:
       mail:
         smtp:
           auth: true
-          ssl:
+          starttls:
             enable: true
 
 
