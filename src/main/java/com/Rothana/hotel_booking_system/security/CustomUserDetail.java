@@ -18,20 +18,20 @@ public class CustomUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles(); // Role must implement GrantedAuthority
+        return user.getRoles();
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword(); // must be BCrypt in DB
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail(); // login by email
+        return user.getEmail();
     }
 
-    // ✅ IMPORTANT: return true or login will fail
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

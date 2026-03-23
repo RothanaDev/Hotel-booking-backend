@@ -15,17 +15,16 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ Allow localhost + all Vercel deployments
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:3000",
                 "http://localhost:3001",
                 "https://*.vercel.app"
         ));
 
-        // ✅ Allow cookies / authentication
+        //  Allow cookies / authentication
         config.setAllowCredentials(true);
 
-        // ✅ Allowed HTTP methods
+        //  Allowed HTTP methods
         config.setAllowedMethods(List.of(
                 "GET",
                 "POST",
@@ -34,14 +33,14 @@ public class CorsConfig {
                 "OPTIONS"
         ));
 
-        // ✅ Allowed headers from frontend
+        //  Allowed headers from frontend
         config.setAllowedHeaders(List.of(
                 "Authorization",
                 "Content-Type",
                 "Accept"
         ));
 
-        // ✅ Expose headers to frontend
+        //  Expose headers to frontend
         config.setExposedHeaders(List.of(
                 "Set-Cookie"
         ));

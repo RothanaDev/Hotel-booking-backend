@@ -73,7 +73,7 @@ public class TelegramNotifyService {
                 "📑 *New Booking Created!*\n\n" +
                         "👤 *Customer:* %s (%s)\n" +
                         "🆔 *Booking ID:* #%d\n" +
-                        "🚪 *Room:* %s (ID: %d)\n" +
+                        "🚪 *Room:* %s (Number: %d)\n" +
                         "💰 *Total Amount:* $%.2f\n" +
                         "📅 *Check-in:* %s\n" +
                         "📅 *Check-out:* %s\n\n" +
@@ -115,7 +115,7 @@ public class TelegramNotifyService {
         String text = String.format(
                 "✅ *Payment Success!*\n\n" +
                         "👤 *Customer:* %s (%s)\n" +
-                        "🆔 *Booking ID:* #%d\n" +
+                        "🆔 *Booking Number:* #%d\n" +
                         "🚪 *Room ID:* %d\n" +
                         "💰 *Room Price:* $%.2f / night\n" +
                         "💵 *Total Paid:* $%.2f\n" +

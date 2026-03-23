@@ -61,18 +61,18 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(endpoint -> endpoint
 
-                // ✅ AUTH (PUBLIC)
+                //  AUTH (PUBLIC)
                 .requestMatchers("/api/v1/auth/**").permitAll()
 
-                // ✅ AUTH (PROTECTED)
+                //  AUTH (PROTECTED)
                 .requestMatchers("/api/v1/auth/me").authenticated()
                 .requestMatchers("/api/v1/auth/all").hasRole("ADMIN")
 
-                // ✅ USER actions
+                //  USER actions
                 .requestMatchers(HttpMethod.PATCH).hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE).hasAnyRole("USER", "ADMIN")
 
-                // ✅ PUBLIC
+                //  PUBLIC
                 .requestMatchers("/upload/**").permitAll()
                 .requestMatchers("/api/v1/telegram/test/**").permitAll()
                 .requestMatchers("/api/v1/payments/paypal/**").permitAll()
@@ -80,43 +80,43 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/housekeeping-tasks/**").permitAll()
                 .requestMatchers("/api/v1/room-calendar/**").permitAll()
 
-                // ✅ INVENTORY
+                //  INVENTORY
                 .requestMatchers(HttpMethod.GET, "/api/v1/inventory/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/inventory/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/inventory/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/inventory/**").hasRole("ADMIN")
 
-                // ✅ BOOKING SERVICES
+                //  BOOKING SERVICES
                 .requestMatchers(HttpMethod.GET, "/api/v1/booking_services/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/booking_services/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/booking_services/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/booking_services/**").hasRole("ADMIN")
 
-                // ✅ BOOKINGS
+                //  BOOKINGS
                 .requestMatchers(HttpMethod.GET, "/api/v1/bookings/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/bookings/**").hasAnyRole("ADMIN", "STAFF", "USER")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/bookings/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/bookings/**").hasRole("ADMIN")
 
-                // ✅ SERVICES
+                //  SERVICES
                 .requestMatchers(HttpMethod.GET, "/api/v1/services/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/services/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/services/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/services/**").hasRole("ADMIN")
 
-                // ✅ ROOMS
+                //  ROOMS
                 .requestMatchers(HttpMethod.GET, "/api/v1/rooms/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/rooms/**").hasAnyRole("ADMIN", "STAFF", "USER")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/rooms/**").hasAnyRole("ADMIN", "STAFF", "USER")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/rooms/**").hasRole("ADMIN")
 
-                // ✅ ROOM TYPES
+                //  ROOM TYPES
                 .requestMatchers(HttpMethod.GET, "/api/v1/roomTypes/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/roomTypes/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/roomTypes/**").hasAnyRole("ADMIN", "STAFF")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/roomTypes/**").hasRole("ADMIN")
 
-                // ✅ UPLOAD
+                //  UPLOAD
                 .requestMatchers(HttpMethod.POST, "/api/v1/upload/**").hasAnyRole("ADMIN", "STAFF")
 
                 .anyRequest().authenticated()
